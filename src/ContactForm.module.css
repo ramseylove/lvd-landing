@@ -1,0 +1,16 @@
+.form_group {
+    width: 150px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+input {
+    border-radius: 3px;
+    border: 0;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.06);
+}
+
+textarea {
+    height:100px
+}
