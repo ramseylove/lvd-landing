@@ -13,9 +13,18 @@ function App() {
     setContactIsShown(false);
   };
 
+  const handleContactFormSuccess = (message) => {
+    console.log(message);
+  };
+
   return (
     <div>
-      {contactIsShown && <ContactForm onClose={hideContactFormHandler} />}
+      {contactIsShown && (
+        <ContactForm
+          onClose={hideContactFormHandler}
+          onSuccess={handleContactFormSuccess}
+        />
+      )}
       <div className="background"></div>
       <div className="heading__container">
         <div className="heading">L. Valentine Designs</div>
