@@ -13,6 +13,7 @@ const emailValidator =
 function ContactForm(props) {
   const {
     value: enteredName,
+    successValue: successName,
     isValid: enteredNameIsValid,
     hasError: nameInputHasError,
     valueInputChangeHandler: nameChangeHandler,
@@ -22,6 +23,7 @@ function ContactForm(props) {
 
   const {
     value: enteredEmail,
+    successValue: successEmail,
     isValid: enteredEmailIsValid,
     hasError: emailInputHasError,
     valueInputChangeHandler: emailChangeHandler,
@@ -31,18 +33,21 @@ function ContactForm(props) {
 
   const {
     value: enteredMessage,
+    successValue: successMessage,
     isValid: enteredMessageIsValid,
     hasError: messageInputHasError,
     valueInputChangeHandler: messageChangeHandler,
     valueInputBlurHandler: messageBlurHandler,
     reset: resetMessageinput,
-  } = useInput('message', (value) => value.length < 500);
+  } = useInput('message', (value) => value.length < 1000);
 
-  const [formIsValid, setFormIsValid] = useState(false)
+  // const [formIsValid, setFormIsValid] = useState(false)
   const [sentEmail, setSentEmail] = useState(false);
 
+  let formIsValid = false;
+
   if (enteredNameIsValid && enteredEmailIsValid && enteredMessageIsValid){
-    setFormIsValid(true)
+    formIsValid = true;
   }
 
   const handleSubmit = (e) => {
@@ -90,7 +95,7 @@ function ContactForm(props) {
   return (
     <Modal onClose={props.onClose}>
       {sentEmail === true ? (
-        <Success name={enteredName} email={enteredEmail} message={enteredMessage} />
+        <Success name={successName} email={successEmail} message={successMessage} />
       ) : (
         <form id="contact-form" onSubmit={handleSubmit} method="POST">
           <div className={nameInputClasses}>
@@ -130,6 +135,7 @@ function ContactForm(props) {
               onBlur={messageBlurHandler}
             ></textarea>
           </div>
+          {messageInputHasError && <p className={classes.error_text}>Message has too many Characters. 1000 max</p>}
           <div className={classes.actions}>
           <button type="submit" className={classes.submitButton}>
             Submit
