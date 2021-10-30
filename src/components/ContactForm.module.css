@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-input, textarea {
+/* input, textarea {
     height: 20px;
     width: 250px;
     border-radius: 3px;
@@ -14,4 +14,102 @@ input, textarea {
 
 textarea {
     height:100px;
+} */
+
+.form_control {
+  /* display: flex; */
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
+
+.form_control label {
+    display: block;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.form_control input,
+.form_control select {
+  width: 100%;
+  border-radius: 3px;
+  /* border: 1px solid #ccc; */
+  font: inherit;
+  padding-left: 0.5rem;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.06);
+}
+.form_control input:focus {
+    outline: none;
+    border-color: #240370;
+    background-color: #e0d4fd;
+  }
+
+.form_control textarea {
+    height: 100px;
+    width: 100%;
+  border-radius: 3px;
+  font: inherit;
+  padding-left: 0.5rem;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.06);
+}
+
+.invalid input {
+    border: 1px solid #b40e0e;
+    background-color: #fddddd;
+  }
+.invalid input:focus {
+    border-color: #ff8800;
+    background-color: #fbe8d2;
+}
+.error_text {
+    color: #b40e0e;
+  }
+/* Contact Form button */
+.actions {
+    text-align: right;
+}
+.submitButton {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+  }
+  
+  .submitButton:hover,
+  .submitButton:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  
+  .submitButton:hover {
+    transform: translateY(-1px);
+  }
+  
+  .submitButton:active {
+    background-color: #F0F0F1;
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(0, 0, 0, 0.65);
+    transform: translateY(0);
+  }

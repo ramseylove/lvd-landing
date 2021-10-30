@@ -1,25 +1,59 @@
 import React, { useState } from "react";
+import useInput from "../hooks/useInput";
 import Modal from "./Modal";
 import { send } from "emailjs-com";
 
 import classes from "./ContactForm.module.css";
 import Success from "./Success";
 
+const emailValidator =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //eslint-disable-line
+
+
 function ContactForm(props) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const {
+    value: enteredName,
+    isValid: enteredNameIsValid,
+    hasError: nameInputHasError,
+    valueInputChangeHandler: nameChangeHandler,
+    valueInputBlurHandler: nameBlurHandler,
+    reset: resetNameInput,
+  } = useInput("name", (value) => value.trim() !== "");
+
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueInputChangeHandler: emailChangeHandler,
+    valueInputBlurHandler: emailBlurHandler,
+    reset: resetEmailInput,
+  } = useInput("email", (value) => emailValidator.test(value));
+
+  const {
+    value: enteredMessage,
+    isValid: enteredMessageIsValid,
+    hasError: messageInputHasError,
+    valueInputChangeHandler: messageChangeHandler,
+    valueInputBlurHandler: messageBlurHandler,
+    reset: resetMessageinput,
+  } = useInput('message', (value) => value.length < 500);
+
+  const [formIsValid, setFormIsValid] = useState(false)
   const [sentEmail, setSentEmail] = useState(false);
+
+  if (enteredNameIsValid && enteredEmailIsValid && enteredMessageIsValid){
+    setFormIsValid(true)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (sentEmail === false) {
+    if (sentEmail === false && formIsValid) {
       const toSend = {
-        from_name: name,
+        from_name: enteredName,
         to_name: "LVD",
-        message: message,
-        reply_to: email,
+        message: enteredMessage,
+        reply_to: enteredEmail,
       };
       send(
         "service_er9x52t",
@@ -29,12 +63,11 @@ function ContactForm(props) {
       )
         .then((response) => {
           console.log("SUCCESS!", response.status, response.text);
-          //   setName('')
-          //   setEmail('')
-          //   setMessage('')
-          //   setSentEmail(true);
           props.onSuccess("Email was Sent Successfully");
           setSentEmail(true);
+          resetNameInput();
+          resetEmailInput();
+          resetMessageinput();
         })
         .catch((err) => {
           console.log("FAILED", err);
@@ -42,57 +75,66 @@ function ContactForm(props) {
     }
   };
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const nameInputClasses = !nameInputHasError
+    ? classes.form_control
+    : classes.form_control + ' ' + classes.invalid;
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const emailInputClasses = !emailInputHasError
+    ? classes.form_control
+    : classes.form_control + ' ' + classes.invalid;
 
-  const handleMessageChange = (e) => {
-    setMessage(e.target.value);
-  };
+  const messageInputClasses = !messageInputHasError
+    ? classes.form_control
+    : classes.form_control + ' ' + classes.invalid;
 
   return (
     <Modal onClose={props.onClose}>
       {sentEmail === true ? (
-        <Success name={name} email={email} message={message} />
+        <Success name={enteredName} email={enteredEmail} message={enteredMessage} />
       ) : (
         <form id="contact-form" onSubmit={handleSubmit} method="POST">
-          <div className={classes.form_group}>
+          <div className={nameInputClasses}>
             <label htmlFor="name">Name</label>
             <input
               name="name"
               type="text"
-              value={name}
-              onChange={handleNameChange}
+              value={enteredName}
+              onChange={nameChangeHandler}
+              onBlur={nameBlurHandler}
               aria-describedby="name"
             />
           </div>
-          <div className={classes.form_group}>
+          {nameInputHasError && (
+        <p className={classes.error_text}>Name must not be empty</p>
+          )}
+          <div className={emailInputClasses}>
             <label htmlFor="inputEmail">Email address</label>
             <input
               name="email"
               type="email"
-              value={email}
-              onChange={handleEmailChange}
+              value={enteredEmail}
+              onChange={emailChangeHandler}
+              onBlur={emailBlurHandler}
               aria-describedby="email"
             />
           </div>
-          <div className={classes.form_group}>
+          {emailInputHasError && <p className={classes.error_text}>This email is not valid</p>}
+          <div className={messageInputClasses}>
             <label htmlFor="message">Message</label>
             <textarea
               name="message"
-              value={message}
+              value={enteredMessage}
               rows="5"
-              aria-describedby="emailHelp"
-              onChange={handleMessageChange}
+              aria-describedby="messageField"
+              onChange={messageChangeHandler}
+              onBlur={messageBlurHandler}
             ></textarea>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <div className={classes.actions}>
+          <button type="submit" className={classes.submitButton}>
             Submit
           </button>
+          </div>
         </form>
       )}
     </Modal>
