@@ -1,7 +1,6 @@
 import React from "react";
-// import Modal from "./Modal";
 
-import styles from "./Success.module.css";
+// import styles from "./Success.module.css";
 
 const Success = (props) => {
   return (
