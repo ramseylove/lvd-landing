@@ -30,7 +30,7 @@ function App() {
         <div className="heading">L. Valentine Designs</div>
         <h2 className="sub_heading">Coming Soon</h2>
 
-        <button onClick={showConactFormHandler}>Contact Me</button>
+        <button className="contactButton" onClick={showConactFormHandler}>Contact Me</button>
       </div>
     </div>
   );
