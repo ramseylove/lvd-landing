@@ -27,10 +27,10 @@ function App() {
       )}
       <div className="background"></div>
       <div className="heading__container">
-        <div className="heading">L. Valentine Designs</div>
-        <h2 className="sub_heading">Coming Soon</h2>
+        <div className="heading">L. Valentine Interiors</div>
+        <div className="sub_heading">COMING SOON</div>
 
-        <button className="contactButton" onClick={showConactFormHandler}>Contact Me</button>
+        <button className="contactButton" onClick={showConactFormHandler}>contact me</button>
       </div>
     </div>
   );

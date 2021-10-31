@@ -26,16 +26,20 @@ textarea {
     display: block;
   font-weight: bold;
   margin-right: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .form_control input,
-.form_control select {
+.form_control select,
+.form_control textarea {
   width: 100%;
   border-radius: 3px;
-  /* border: 1px solid #ccc; */
+  border: 0;
+  border-bottom: 1px solid #ccc;
   font: inherit;
-  padding-left: 0.5rem;
-  box-shadow: 4px 4px 10px rgba(0,0,0,0.06);
+  padding: 0.5rem;
+  margin: 10px, 0;
+  /* box-shadow: 4px 4px 10px rgba(0,0,0,0.06); */
 }
 .form_control input:focus {
     outline: none;
@@ -53,7 +57,7 @@ textarea {
 }
 
 .invalid input {
-    border: 1px solid #b40e0e;
+    border-bottom: 1px solid #b40e0e;
     background-color: #fddddd;
   }
 .invalid input:focus {
@@ -61,7 +65,9 @@ textarea {
     background-color: #fbe8d2;
 }
 .error_text {
-    color: #b40e0e;
+  font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    color: #940202;
   }
 /* Contact Form button */
 .actions {
@@ -74,7 +80,7 @@ textarea {
     border-radius: .25rem;
     box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
     box-sizing: border-box;
-    color: rgba(0, 0, 0, 0.85);
+    color: #330000;
     cursor: pointer;
     display: inline-flex;
     font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
