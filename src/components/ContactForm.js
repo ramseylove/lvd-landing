@@ -99,10 +99,11 @@ function ContactForm(props) {
       ) : (
         <form id="contact-form" onSubmit={handleSubmit} method="POST">
           <div className={nameInputClasses}>
-            <label htmlFor="name">Name</label>
+            {/* <label htmlFor="name">Name</label> */}
             <input
               name="name"
               type="text"
+              placeholder="name"
               value={enteredName}
               onChange={nameChangeHandler}
               onBlur={nameBlurHandler}
@@ -110,24 +111,26 @@ function ContactForm(props) {
             />
           </div>
           {nameInputHasError && (
-        <p className={classes.error_text}>Name must not be empty</p>
+        <p className={classes.error_text}>name field can not be empty</p>
           )}
           <div className={emailInputClasses}>
-            <label htmlFor="inputEmail">Email address</label>
+            {/* <label htmlFor="inputEmail">Email address</label> */}
             <input
               name="email"
               type="email"
+              placeholder="email"
               value={enteredEmail}
               onChange={emailChangeHandler}
               onBlur={emailBlurHandler}
               aria-describedby="email"
             />
           </div>
-          {emailInputHasError && <p className={classes.error_text}>This email is not valid</p>}
+          {emailInputHasError && <p className={classes.error_text}>email is either empty or not valid, please correct</p>}
           <div className={messageInputClasses}>
-            <label htmlFor="message">Message</label>
+            {/* <label htmlFor="message">Message</label> */}
             <textarea
               name="message"
+              placeholder="message"
               value={enteredMessage}
               rows="5"
               aria-describedby="messageField"
@@ -135,10 +138,10 @@ function ContactForm(props) {
               onBlur={messageBlurHandler}
             ></textarea>
           </div>
-          {messageInputHasError && <p className={classes.error_text}>Message has too many Characters. 1000 max</p>}
+          {messageInputHasError && <p className={classes.error_text}>sorry, your message has too many Characters. 1000 max</p>}
           <div className={classes.actions}>
           <button type="submit" className={classes.submitButton}>
-            Submit
+            submit
           </button>
           </div>
         </form>
